@@ -4,7 +4,7 @@ import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from 'react-query'
 import Index from "./pages/index.tsx";
 import './index.css'
-import Show from "./pages/show.tsx";
+import MovieDetail from "./pages/MovieDetail.tsx";
 
 const router = createBrowserRouter([
     {
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/movies/:movieId",
-        element: <Show />,
+        element: <MovieDetail />,
     },
 ])
 
