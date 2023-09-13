@@ -1,6 +1,6 @@
 import axiosInstance from "./index.ts";
 import {AxiosError} from "axios";
-import {IMovieDetails} from "../types";
+import {IGetMovieResponse, IMovieDetails} from "../types";
 
 class HttpError extends Error {
     status: number;
@@ -19,28 +19,6 @@ class NetworkError extends Error {
         super(message);
         this.name = 'NetworkError';
     }
-}
-
-interface IGetMovieResponse {
-    page: number;
-    results: Array<{
-        adult: boolean;
-        backdrop_path: string;
-        genre_ids: Array<number>;
-        id: number;
-        original_language: string;
-        original_title: string;
-        overview: string;
-        popularity: number;
-        poster_path: string;
-        release_date: string;
-        title: string;
-        video: boolean;
-        vote_average: number;
-        vote_count: number;
-    }>;
-    total_pages: number;
-    total_results: number;
 }
 
 class HttpService {
@@ -69,7 +47,7 @@ class HttpService {
             if (err instanceof AxiosError) {
                 if (err.response) {
                     // The request was made, but the server responded with an error status code
-                    throw new HttpError(err.response.status, `${err.response.data.message}`, err.response.data.data);
+                    throw new HttpError(err.response.status, `${err.response.data.status_message}`, err.response.data);
                 } else if (err.request) {
                     // The request was made but no response was received (e.g., network error)
                     throw new NetworkError('No response received from the server');

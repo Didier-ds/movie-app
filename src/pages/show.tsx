@@ -3,12 +3,13 @@ import Header from "../components/Header";
 import {useQuery} from "react-query";
 import HttpService from "../api/http.service.ts";
 import Container from "../components/Container.tsx";
+import MovieErrorCard from "../components/MovieErrorCard.tsx";
 
 const MovieDetails = () => {
     const {movieId} = useParams();
 
     const {data, error} = useQuery(['movies', movieId], () => HttpService.getMovieDetails(movieId ?? ""))
-    if (error) return <h1>Something went wrong!</h1>
+    if (error) return <MovieErrorCard />
     if (!data) return <p>Is loading</p>
     return (
         <>
